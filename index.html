@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container .div {
+            width: 50%;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+        .search-box {
+            display: flex;
+            justify-content: space-between;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        .results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Interface</h1>
+        <div class="search">
+            <input type="text" id="searchQuery" placeholder="Enter your search query">
+            <button onclick="performSearch()">Search</button>
+        </div>
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        function performSearch() {
+            const query = document.getElementById('searchQuery').value;
+            fetch('http://127.0.0.1:5000/data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: query }),
+            })
+            .then(response => response.json())
+            .then(data => {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (data.length > 0) {
+                data.forEach(result => {
+                    const resultItem = document.createElement('div');
+                    resultItem.textContent = JSON.stringify(result); // Convert object to string
+                    resultsDiv.appendChild(resultItem);
+                });
+            } else {
+                resultsDiv.textContent = 'No results found.';
+            }
+        })
+
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

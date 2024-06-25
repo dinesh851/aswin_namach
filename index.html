@@ -31,23 +31,52 @@
 </head>
 <body>
     <div class="container">
-        <h1>Search Interface</h1>
+        <h1>intuit_sucess  </h1>
         <div class="search">
-            <input type="text" id="searchQuery" placeholder="Enter your search query">
-            <button onclick="performSearch()">Search</button>
+            <!-- <input type="text" id="searchQuery" placeholder="Enter your search query"> -->
+            <button onclick="performSearch()">intuit_sucess</button>
+            <button onclick="performSearch1()">intuit_sucess</button>
+            <button onclick="performSearch()">intuit_sucess</button>
         </div>
         <div class="results" id="results"></div>
     </div>
 
     <script>
         function performSearch() {
-            const query = document.getElementById('searchQuery').value;
+            // const query = document.getElementById('searchQuery').value;
             fetch('http://127.0.0.1:5000/data', {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query: query }),
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (data.length > 0) {
+                data.forEach(result => {
+                    const resultItem = document.createElement('div');
+                    resultItem.textContent = JSON.stringify(result); // Convert object to string
+                    resultsDiv.appendChild(resultItem);
+                });
+            } else {
+                resultsDiv.textContent = 'No results found.';
+            }
+        })
+
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        function performSearch1() {
+            // const query = document.getElementById('searchQuery').value;
+            fetch('http://127.0.0.1:5000/chev', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
             })
             .then(response => response.json())
             .then(data => {

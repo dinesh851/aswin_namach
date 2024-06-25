@@ -6,13 +6,14 @@ app = Flask(__name__)
 CORS(app)
 @app.route('/', methods=['GET'])
 def fa():
-    return "fewefWS"
+    return "pounsanj"
 
+ 
 
-@app.route('/data', methods=['POST'])
+@app.route('/data', methods=['GET'])
 def post_data():
-    data = request.json
-    print(data)
+    print("message recived")
+    # print(data)
     data=[
     {
         "date": "2024-06-11",
@@ -23,10 +24,31 @@ def post_data():
         "_cd": "1008:43199426" 
     }
 ]
-    json_data = json.dumps(data, indent=4)
-    print(json_data)
+    # json_data = json.dumps(data, indent=4)
+    # print(json_data)
 
     # Return the received data as a JSON response
+    print("sending data")
+    return jsonify(data), 200
+@app.route('/chev', methods=['GET'])
+def bdfhbsdjhbf():
+    print("message recived")
+    # print(data)
+    data=[
+    {
+        "date": "2024-06-11",
+        "success_count": "10"
+    },
+    {
+        "_bkt":"27C9E931-8514-4737-9400-AA9E01FCE980",
+        "_cd": "1008:43199426" 
+    }
+]
+    # json_data = json.dumps(data, indent=4)
+    # print(json_data)
+
+    # Return the received data as a JSON response
+    print("sending data")
     return jsonify(data), 200
 
 if __name__ == '__main__':

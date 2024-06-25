@@ -7,16 +7,7 @@ def modify_splunk_query(query, start_time, end_time):
     
     # The string to insert
     insert_str = f"earliest={start_time} Latest={end_time} "
-    
-    # Find the index of the first occurrence of "|"
-    pipe_index = modified_query.find("|")
-    
-    # If there is a "|" in the string, insert the insert_str before it
-    if pipe_index != -1:
-        modified_query = modified_query[:pipe_index] + insert_str + modified_query[pipe_index:]
-    
-    return modified_query
-
+     
 # Define start_time and end_time
 start_time = "2023-01-01T00:00:00"
 end_time = "2023-01-01T23:59:59"
